@@ -1,6 +1,7 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import static Algorithm.PrintResult.printingValues;
 
 public class EuclidianAlgorithm {
     /**
@@ -66,82 +67,5 @@ public class EuclidianAlgorithm {
      * @param second Number, which multiplied with n, should be less equal to a
      * @return The greatest multiplier
      */
-    public static int greatestMultiplier(Integer first, Integer second){return (int) Math.floor((double) first /second);}
-
-    /**
-     * Method to print the result of the extended Euclidean algorithm in its natural form of representation as a table of values, due to its construction with intelligent spacing
-     * @param list The list with the values to print
-     */
-    public static void printingValues(ArrayList<ArrayList<Integer>> list) {
-        boolean isEmpty = false;
-        int[] greatest = new int[5];
-        var printout = new String[]{"a", "b", "q", "x", "y"};
-        for(int u= 0; u< printout.length; u++){
-            System.out.print(printout[u]);
-            greatest[u] = greatestSpace(list, u);
-            for(int k=0; k< greatest[u]; k++){
-                System.out.print("\t");
-            }
-        }
-        System.out.println(" ");
-
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = 0; j < list.get(i).size(); j++) {
-                if (i == list.size() - 1 && j == 2) {
-                    for(int l = 0; l < calcTheSpace(list.get(i).get(j), greatest[j]); l++){
-                        System.out.print("\t");
-                        isEmpty = true;
-                    }
-                }
-                System.out.print(list.get(i).get(j));
-                for(int l = 0; l < calcTheSpace(list.get(i).get(j), isEmpty ? greatest[j+1]: greatest[j]); l++){
-                    System.out.print("\t");
-                }
-            }
-            System.out.println(" ");
-        }
-        System.out.println("\n");
-    }
-
-    /**
-     * Method to calculate the greatest spaces in tabs needed to format the table correctly
-     * @param list The list, to iterate through the elements and get the correct spacing
-     * @param index Column index, of which the amount of tabs should be calculated
-     * @return Number of tabs to format the output table correctly
-     */
-    public static int greatestSpace(ArrayList<ArrayList<Integer>> list, int index){
-        int greatest = 0;
-        int len;
-        for (ArrayList<Integer> integers : list) {
-            for (int j = 0; j < integers.size(); j++) {
-                if (j == index) {
-                    len = integers.get(j).toString().length();
-                    if (len > greatest) {
-                        greatest = len;
-                    }
-                }
-            }
-        }
-        return switch (greatest){
-            case 1, 2, 3 -> 1;
-            case 4, 5, 6, 7 -> 2;
-            case 8, 9, 10, 11 -> 3;
-            default -> 4;
-        };
-    }
-
-    /**
-     * Method to calculate the tabs after a value has been printed
-     * @param item the Item to calculate the optimal amount of tabs for formatting
-     * @param greatest The greatest amount of tabs in the specific column
-     * @return Number of Tabs required for a correct spacing
-     */
-    public static int calcTheSpace(Integer item, Integer greatest){
-        return switch (item.toString().length()) {
-            case 1, 2, 3 -> greatest;
-            case 4, 5, 6, 7 -> greatest - 1;
-            case 8, 9, 10, 11 -> greatest - 2;
-            default -> greatest - 3;
-        };
-    }
+    private static int greatestMultiplier(Integer first, Integer second){return (int) Math.floor((double) first /second);}
 }

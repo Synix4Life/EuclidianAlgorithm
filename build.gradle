@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = ''
+version = '3.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -16,4 +17,17 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17 // Change as needed
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClass = 'Main' // Update if Main is inside a package
 }
